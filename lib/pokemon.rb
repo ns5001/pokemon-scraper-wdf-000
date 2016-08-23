@@ -15,16 +15,9 @@ class Pokemon
     db.execute("INSERT INTO pokemon(name, type) VALUES (?,?)", name, type)
   end
 
-  def self.find(id, db)
-    ary = []
-    @@all.each do |pokemon|
-      if pokemon.id == id
-          ary << id
-          ary << pokemon.name
-          ary << pokemon.type
-      end
-    end
-    [ary]
+  def self.find(id_num, db)
+    pokemon_info = db.execute("SELECT * FROM pokemon WHERE id=?", id_num).first
+    Pokemon.new(pokemon_info, db)
   end
 
 
